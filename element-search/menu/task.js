@@ -6,17 +6,22 @@ for (var i = 0; i < items.length; i++) {
     const menuSub = item.querySelector('ul.menu_sub');
     if (menuSub !== null) {
         menuLink.onclick = function () {
-            // hide all menus
-            const allSubs = document.querySelectorAll('ul.menu_sub');
-            for (var i = 0; i < allSubs.length; i++) {
-                const subItem = allSubs[i];
-                subItem.className = 'menu menu_sub';
+
+            if (menuSub.className === 'menu menu_sub') {
+                hideAllSubs();
+                menuSub.className = 'menu menu_sub menu_active';
+            } else {
+                hideAllSubs();
             }
-
-            // show required menu
-            menuSub.className = menuSub.className + ' menu_active';
-
             return false;
         }
+    }
+}
+
+function hideAllSubs() {
+    const allSubs = document.querySelectorAll('ul.menu_sub');
+    for (var i = 0; i < allSubs.length; i++) {
+        const subItem = allSubs[i];
+        subItem.className = 'menu menu_sub';
     }
 }
