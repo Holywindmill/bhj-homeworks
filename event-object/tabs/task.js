@@ -9,16 +9,20 @@ for (let k = 0; k < menus.length; k++) {
         const tab = tabs[i];
         const content = contents[i];
         tab.addEventListener('click', function () {
-            hideAllTabs();
+            hideAllContent();
             tab.className = 'tab tab_active';
             content.className = 'tab__content tab__content_active';
         })
     }
 
-    function hideAllTabs() {
+    function hideAllContent() {
         for (let j = 0; j < contents.length; j++) {
             const content = contents[j];
             content.className = 'tab__content';
+        }
+        for (let j = 0; j < tabs.length; j++) {
+            const tab = tabs[j];
+            tab.className = 'tab';
         }
     }
 }
