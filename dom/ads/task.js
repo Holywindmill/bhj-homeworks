@@ -1,45 +1,28 @@
 'use strict';
 
-function numberOfCases(rotator) {
-    return rotator.querySelectorAll('span.rotator__case').length;
-}
+const rotators = document.querySelectorAll('span.rotator');
 
-function activeCase(rotator) {
-    const rotatorCases = rotator.querySelectorAll('span.rotator__case');
-    for (let j = 0; j < rotatorCases.length; j++) {
-        const rotatorCase = rotatorCases[j];
-        if (rotatorCase.classList.contains('rotator__case_active')) {
-            return j;
-        }
+function rotatorChange(rotator) {
+    const activeCase = rotator.querySelector('span.rotator__case_active');
+    let nextCase;
+    if (activeCase.nextElementSibling === null) {
+        nextCase = rotator.firstElementChild;
+    } else {
+        nextCase = activeCase.nextElementSibling;
     }
-    return 0;
+    activeCase.classList.remove("rotator__case_active")
+    nextCase.classList.add("rotator__case_active");
+    nextCase.style.color = nextCase.dataset.color;
+    setTimeout(rotatorChange, parseInt(nextCase.dataset.speed), rotator);
 }
 
-function hideCase(rotator, n) {
-    const rotatorCases = rotator.querySelectorAll('span.rotator__case');
-    rotatorCases[n].classList.remove('rotator__case_active')
+function initRotator(rotator) {
+    const activeCase = rotator.querySelector('span.rotator__case_active');
+    activeCase.style.color = activeCase.dataset.color;
+    setTimeout(rotatorChange, parseInt(activeCase.dataset.speed), rotator);
 }
 
-function showCase(rotator, n) {
-    const rotatorCases = rotator.querySelectorAll('span.rotator__case');
-    rotatorCases[n].classList.add('rotator__case_active');
+for (let i = 0; i < rotators.length; i++) {
+    const rotator = rotators[i];
+    initRotator(rotator);
 }
-
-function rotatorChange() {
-    const rotators = document.querySelectorAll('span.rotator');
-    for (let i = 0; i < rotators.length; i++) {
-        const rotator = rotators[i];
-        const a = numberOfCases(rotator);
-        const n = activeCase(rotator);
-        hideCase(rotator, n);
-        if (n < (a - 1)) {
-            showCase(rotator, n + 1);
-        } else {
-            showCase(rotator, 0);
-        }
-
-    }
-    console.log('hi')
-}
-
-setInterval(rotatorChange, 1000);
