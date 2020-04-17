@@ -10,10 +10,10 @@ for (let i = 0; i < fontSize.length; i++) {
     activeFontSize.onclick = function () {
         inactiveFont();
         activeFontSize.classList.add('font-size_active');
-        if (this.classList.contains('font-size_small')) {
+        if (this.dataset.size === "small") {
             book.classList.add('book_fs-small');
             book.classList.remove('book_fs-big');
-        } else if (this.classList.contains('font-size_big')) {
+        } else if (this.dataset.size === "big") {
             book.classList.add('book_fs-big');
             book.classList.remove('book_fs-small');
         } else {
@@ -29,10 +29,10 @@ for (let i = 0; i < color.length; i++) {
     activeColor.onclick = function () {
         inactiveColor();
         activeColor.classList.add('color_active');
-        if (this.classList.contains('color_gray')) {
+        if (this.dataset.color ==='gray') {
             book.classList.add('book_color-gray');
             book.classList.remove('book_color-whitesmoke');
-        } else if (this.classList.contains('color_whitesmoke')) {
+        } else if (this.dataset.color === 'whitesmoke') {
             book.classList.add('book_color-whitesmoke');
             book.classList.remove('book_color-gray');
         } else {
@@ -48,15 +48,15 @@ for (let i = 0; i < bgColor.length; i++) {
     activeBgColor.onclick = function () {
         inactiveBgColor();
         activeBgColor.classList.add('color_active');
-        if (this.classList.contains('color_gray')) {
+        if (this.dataset.color === 'gray') {
             book.classList.add('book_bg-gray');
             book.classList.remove('book_bg-black');
-        } else if (this.classList.contains('color_white')) {
-            book.classList.remove('book_bg-gray');
-            book.classList.remove('book_bg-black');
-        } else {
+        } else if (this.dataset.color === 'black') {
             book.classList.add('book_bg-black');
             book.classList.remove('book_bg-gray');
+        } else {
+            book.classList.remove('book_bg-gray');
+            book.classList.remove('book_bg-black');
         }
         return false;
     };
