@@ -20,7 +20,6 @@ for (let i = 0; i < products.length; i++) {
         return false;
     }
     bin.onclick = function () {
-        // 1. check
         const cartItems = cartProducts.querySelectorAll('div.cart__product');
         let productAlreadyInCart = false;
         for (let k = 0; k < cartItems.length; k++) {
@@ -29,7 +28,6 @@ for (let i = 0; i < products.length; i++) {
                 productAlreadyInCart = true;
             }
         }
-        // 2. if no, then add
         if (productAlreadyInCart === false) {
             cartProducts.insertAdjacentHTML("afterbegin", '<div class="cart__product" data-id="' +
                 product.dataset.id +
@@ -43,7 +41,6 @@ for (let i = 0; i < products.length; i++) {
                 const cartItem = cartItems[j];
                 console.log(cartItem)
                 const productCount = cartItem.querySelector('div.cart__product-count');
-                // const productCount = productCounts[j];
                 if (product.dataset.id === cartItem.dataset.id) {
                     console.log("if entered")
                     productCount.innerText = parseInt(productCount.innerText) + parseInt(quantity.innerText);
