@@ -1,17 +1,19 @@
 'use strict';
-const tooltips = document.querySelectorAll('a.has-tooltip');
-for (let i = 0; i < tooltips.length; i++) {
-    const tooltip = tooltips[i];
-    tooltip.onclick = function () {
-        const divs = tooltip.querySelectorAll('div.tooltip');
-        if (divs.length > 0) {
-            for (let j = 0; j < divs.length; j++) {
-                tooltip.removeChild(divs[j]);
-            }
+const chunks = document.querySelectorAll('a.has-tooltip');
+const tooltip = document.querySelector('div.tooltip');
+for (let i = 0; i < chunks.length; i++) {
+    const chunk = chunks[i];
+    chunk.onclick = function () {
+        const x = Math.floor(chunk.getBoundingClientRect().x);
+        const y = Math.floor(chunk.getBoundingClientRect().y + chunk.getBoundingClientRect().height);
+        const title = chunk.title;
+        if (Math.floor(tooltip.getBoundingClientRect().x) === x && Math.floor(tooltip.getBoundingClientRect().y) === y) {
+            tooltip.style.display = 'none';
         } else {
-            tooltip.insertAdjacentHTML('beforeend', '<div class="tooltip" style="position: absolute; display: flex">' +
-                tooltip.title +
-                '</div>')
+            tooltip.style.left = x + 'px';
+            tooltip.style.top = y + 'px';
+            tooltip.innerHTML = title;
+            tooltip.style.display = 'flex';
         }
         return false;
     }
