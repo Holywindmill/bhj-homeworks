@@ -7,24 +7,15 @@ const addButton = document.getElementById('tasks__add');
 
 function addTask() {
     if (input.value.length > 0) {
-        tasks.innerHTML =
-            tasks.innerHTML +
+        tasks.insertAdjacentHTML("beforeend",
             `<div class="task">` +
             `<div class="task__title">` +
             input.value +
             `</div>` +
             `<a href="#" class="task__remove">&times;</a>` +
-            `</div>`;
+            `</div>`);
         input.value = '';
-        removeButtonsHandler();
-    }
-}
-
-function removeButtonsHandler() {
-    const removeButtons = document.querySelectorAll('a.task__remove');
-    console.log(removeButtons)
-    for (let i = 0; i < removeButtons.length; i++) {
-        const removeButton = removeButtons[i];
+        const removeButton = tasks.lastElementChild.querySelector('a.task__remove');
         removeButton.onclick = function () {
             tasks.removeChild(removeButton.parentNode)
         }
@@ -32,7 +23,6 @@ function removeButtonsHandler() {
 }
 
 function keyHandler(event) {
-    console.log(event)
     if ((event.key === 'Enter')) {
         addTask();
     }
@@ -43,7 +33,6 @@ addButton.onclick = function () {
 }
 
 function submitHandler(event) {
-    console.log(event)
     event.preventDefault();
 }
 
